@@ -2,6 +2,14 @@
   "routes": [
     {
       "method": "GET",
+      "path": "/getBySlug",
+      "handler": "post.getBySlug",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/posts",
       "handler": "post.find",
       "config": {

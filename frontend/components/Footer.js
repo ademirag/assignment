@@ -4,17 +4,18 @@ import { Layout, Menu, Typography, Image, Row, Col } from "antd";
 const { Title, Paragraph, Text, Link } = Typography;
 const { Footer } = Layout;
 
-export default function MainFooter({ menu }) {
+export default function MainFooter({ menu, order, onOrderChange }) {
+  console.log(order);
   return (
     <Footer>
       {menu !== false ? (
-        <Menu mode="horizontal">
+        <Menu mode="horizontal" selectable={false}>
           <Menu.Item key="newst-first-footer">
             <a
-              className={"selected"}
-              href="https://ant.design"
-              target="_blank"
-              rel="noopener noreferrer"
+              className={order === "desc" ? "selected" : ""}
+              onClick={() => {
+                onOrderChange("desc");
+              }}
             >
               NEWEST FIRST
             </a>
@@ -22,9 +23,10 @@ export default function MainFooter({ menu }) {
           <span>|</span>
           <Menu.Item key="oldest-first-footer">
             <a
-              href="https://ant.design"
-              target="_blank"
-              rel="noopener noreferrer"
+              className={order === "asc" ? "selected" : ""}
+              onClick={() => {
+                onOrderChange("asc");
+              }}
             >
               OLDEST FIRST
             </a>

@@ -1,16 +1,51 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Space, Menu, PageHeader, Image, Layout, Pagination } from "antd";
 import PostCard from "./../components/PostCard";
 import Footer from "./../components/Footer";
 import "./../styles/globals.less";
+import { gql } from "@apollo/client";
+import { graphQLClient } from "./../models/utils";
 
 const { Content } = Layout;
 
-export default function Home() {
+const POST_PER_PAGE = 6;
+
+const Home = function ({ data, defaultOrder }) {
+  const [postData, setPostData] = useState(data.posts);
+  const [order, setOrder] = useState(defaultOrder);
+  const [page, setPage] = useState(1);
+
+  useEffect(async () => {
+    var skipAmount = (page - 1) * POST_PER_PAGE;
+    const result = await graphQLClient.query({
+      query: gql`
+        query {
+          posts(limit: ${POST_PER_PAGE}, start:${skipAmount}, sort:"created_on:${order}") {
+            title
+            content
+            created_on
+            slug
+            feature_image {
+              url
+            }
+          }
+        }
+      `,
+    });
+    setPostData(result.data.posts);
+  }, [page, order]);
+
+  let posts = [];
+  postData.map((post, index) => {
+    let postItem = <PostCard key={"post" + index} data={post} />;
+    posts.push(postItem);
+  });
+
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>MAX Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -24,13 +59,13 @@ export default function Home() {
           }
         />
         <Content>
-          <Menu mode="horizontal">
+          <Menu mode="horizontal" selectable={false}>
             <Menu.Item key="newst-first-header">
               <a
-                className={"selected"}
-                href="https://ant.design"
-                target="_blank"
-                rel="noopener noreferrer"
+                className={order === "desc" ? "selected" : ""}
+                onClick={() => {
+                  setOrder("desc");
+                }}
               >
                 NEWEST FIRST
               </a>
@@ -38,27 +73,59 @@ export default function Home() {
             <span>|</span>
             <Menu.Item key="oldest-first-header">
               <a
-                href="https://ant.design"
-                target="_blank"
-                rel="noopener noreferrer"
+                className={order === "asc" ? "selected" : ""}
+                onClick={() => {
+                  setOrder("asc");
+                }}
               >
                 OLDEST FIRST
               </a>
             </Menu.Item>
           </Menu>
           <Space className={"post-card-container"} size={2} wrap>
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            {posts}
           </Space>
-          <Pagination defaultCurrent={1} total={50} className={"pagination"} />
+          <Pagination
+            defaultCurrent={1}
+            total={Math.ceil(data.postCount / POST_PER_PAGE)}
+            className={"pagination"}
+            onChange={(page) => {
+              setPage(page);
+            }}
+          />
         </Content>
-        <Footer />
+        <Footer
+          onOrderChange={(order) => {
+            setOrder(order);
+          }}
+          order={order}
+        />
       </Layout>
     </div>
   );
-}
+};
+
+export default Home;
+
+export const getStaticProps = async (context) => {
+  const { data } = await graphQLClient.query({
+    query: gql`
+      query {
+        postCount
+        posts(limit: 6, sort: "created_on:desc") {
+          title
+          content
+          created_on
+          slug
+          feature_image {
+            url
+          }
+        }
+      }
+    `,
+  });
+  return {
+    revalidate: 10,
+    props: { data, defaultOrder: "desc" },
+  };
+};

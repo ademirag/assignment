@@ -1,0 +1,177 @@
+.main-layout {
+  background: transparent;
+}
+
+.main-layout .header {
+  padding-bottom: 0;
+}
+
+.main-layout .header > div {
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid @border-color-base;
+}
+
+/* menus */
+
+.main-layout .ant-menu {
+  text-align: center;
+}
+
+.main-layout .ant-menu .selected {
+  color: @primary-color;
+}
+
+.main-layout footer .ant-menu {
+  background: @primary-background-color;
+  height: 70px;
+  padding-top: 13px;
+  color: @text-color;
+  border: none;
+}
+
+.main-layout footer .ant-menu .selected {
+  color: inherit;
+}
+
+/* post card */
+
+.post-card-container {
+  justify-content: center;
+}
+
+.post-card-container > div {
+  width: 40%;
+  min-width: 320px;
+}
+
+.post-card {
+  border: none;
+  margin-bottom: 20px;
+  border-bottom: 1px solid @border-color-base;
+}
+
+.post-card h2 {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: @text-color-secondary;
+}
+
+.post-card .date-label {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.post-card .date-label span {
+  width: 30px;
+  height: 4px;
+  background-color: @primary-color;
+  display: inline-block;
+}
+
+.post-card .date-label .ant-typography {
+  font-size: 12px;
+  text-transform: uppercase;
+  background: none;
+  width: auto;
+  position: relative;
+  top: 2px;
+  padding-right: 5px;
+  padding-left: 10px;
+}
+
+.post-card .content {
+  padding-left: 35px;
+  padding-right: 35px;
+  height: 95px;
+}
+
+.post-card.post .content {
+  padding-left: 35px;
+  padding-right: 35px;
+  height: auto;
+}
+
+.post-card a {
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+  background: @primary-color;
+  border-radius: 25px;
+  width: 190px;
+  height: 40px;
+  text-align: center;
+  color: @button-text-color;
+  font-size: 14px;
+  padding-top: 8px;
+}
+
+/* pagination */
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.pagination li,
+.ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination-next .ant-pagination-item-link {
+  border: none;
+  position: relative;
+}
+
+.pagination li.ant-pagination-item-active:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: rotate(45deg);
+  border: 1px solid @primary-color;
+}
+/* footer */
+
+.ant-layout-footer {
+  background: @inverted-background-color;
+  min-height: 310px;
+  padding: 0;
+  margin: 0;
+}
+
+.ant-layout-footer .ant-row {
+  justify-content: center;
+}
+
+.ant-layout-footer .ant-col-12 {
+  width: 40%;
+  max-width: 40%;
+  min-width: 320px;
+  padding-top: 65px;
+}
+
+.ant-layout-footer h3.ant-typography {
+  color: @inverted-text-color-secondary;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ant-layout-footer .border {
+  display: block;
+  width: 40px;
+  margin-top: 5px;
+  border-bottom: 4px solid @primary-color;
+}
+
+/* back button */
+
+.ant-page-header-back {
+  position: absolute;
+  left: 30px;
+}

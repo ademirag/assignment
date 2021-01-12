@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Space, Menu, PageHeader, Image, Layout, Pagination } from "antd";
-import PostCard from "./../components/PostCard";
+import PostList from "./../components/PostList";
 import Footer from "./../components/Footer";
 import "./../styles/globals.less";
 import { gql } from "@apollo/client";
@@ -35,12 +35,6 @@ const Home = function ({ data, defaultOrder }) {
     });
     setPostData(result.data.posts);
   }, [page, order]);
-
-  let posts = [];
-  postData.map((post, index) => {
-    let postItem = <PostCard key={"post" + index} data={post} />;
-    posts.push(postItem);
-  });
 
   return (
     <div>
@@ -82,9 +76,7 @@ const Home = function ({ data, defaultOrder }) {
               </a>
             </Menu.Item>
           </Menu>
-          <Space className={"post-card-container"} size={2} wrap>
-            {posts}
-          </Space>
+          <PostList data={postData} />
           <Pagination
             defaultCurrent={1}
             total={Math.ceil(data.postCount / POST_PER_PAGE)}

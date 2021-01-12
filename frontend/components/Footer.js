@@ -1,11 +1,9 @@
-import "./../styles/globals.less";
 import { Layout, Menu, Typography, Image, Row, Col } from "antd";
 
 const { Title, Paragraph, Text, Link } = Typography;
 const { Footer } = Layout;
 
 export default function MainFooter({ menu, order, onOrderChange }) {
-  console.log(order);
   return (
     <Footer>
       {menu !== false ? (

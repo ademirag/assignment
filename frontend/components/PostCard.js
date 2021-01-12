@@ -7,7 +7,7 @@ const { Title, Paragraph, Text, Link } = Typography;
 export default function PostCard({ data }) {
   return (
     <Card className={"post-card"}>
-      <Image src={"img/dummy-image-1.jpg"} />
+      <Image src={"http://138.197.180.22:1337" + data.feature_image.url} />
       <Title level={2}>{data.title}</Title>
       <div className={"date-label"}>
         <span></span>

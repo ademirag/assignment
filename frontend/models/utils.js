@@ -16,7 +16,7 @@ const months = [
 ];
 
 export const graphQLClient = new ApolloClient({
-  uri: "http://localhost:1337/graphql",
+  uri: "http://138.197.180.22:1337/graphql",
   cache: new InMemoryCache(),
 });
 

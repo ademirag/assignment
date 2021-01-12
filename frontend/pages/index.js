@@ -79,7 +79,8 @@ const Home = function ({ data, defaultOrder }) {
           <PostList data={postData} />
           <Pagination
             defaultCurrent={1}
-            total={Math.ceil(data.postCount / POST_PER_PAGE)}
+            defaultPageSize={POST_PER_PAGE}
+            total={data.postCount}
             className={"pagination"}
             onChange={(page) => {
               setPage(page);
